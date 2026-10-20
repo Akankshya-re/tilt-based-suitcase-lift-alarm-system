@@ -40,7 +40,8 @@ The design aims to provide a portable, low-cost luggage security solution using 
 
 ### Circuit Schematic
 
-![Circuit schematic](images/circuit-schematic.png)
+<img width="631" height="333" alt="DOC-20260612-WA0012 pdf (1)" src="https://github.com/user-attachments/assets/420d04e4-eb64-45ab-a0c1-9935fbf0d7c9" />
+
 
 *Figure 1: Circuit schematic of the tilt sensor-based alarm system.*
 
@@ -52,21 +53,16 @@ The design aims to provide a portable, low-cost luggage security solution using 
 
 ### PCB Layout
 
-![PCB layout](images/pcb-layout.png)
+<img width="1066" height="656" alt="WhatsApp Image 2026-09-20 at 7 52 04 PM (1)" src="https://github.com/user-attachments/assets/786c9d2a-e89c-4e8f-a25d-0d5c25be88c6" />
 
 *Figure 3: Custom single-layer PCB layout.*
 
 ### PCB 3D View
 
-![PCB 3D view](images/pcb-3d-view.png)
+<img width="1200" height="795" alt="WhatsApp Image 2026-09-20 at 7 52 04 PM" src="https://github.com/user-attachments/assets/20a3ccc3-f631-42fa-a0c1-64fa9c2c2ce3" />
 
-*Figure 4: Three-dimensional PCB view, if available.*
+*Figure 4: Three-dimensional PCB view.*
 
-### Hardware Prototype
-
-![Hardware prototype](images/hardware-prototype.png)
-
-*Figure 5: Physical implementation of the alarm circuit, if available.*
 
 > Replace these image paths with the actual filenames in the repository. Remove any image section for which no corresponding image is available.
 
@@ -134,7 +130,7 @@ The sensor output and associated resistor network control the base drive of the 
 
 ### 4. Audible and Visual Alert
 
-When the switching stage activates the output devices, the piezoelectric buzzer produces an audible warning and the LED illuminates to indicate detected movement.
+When the switching stage activates the output devices, the piezoelectric buzzer produces an audible warning, and the LED illuminates to indicate detected movement.
 
 ### 5. Return to Normal Position
 
