@@ -64,8 +64,6 @@ The design aims to provide a portable, low-cost luggage security solution using 
 *Figure 4: Three-dimensional PCB view.*
 
 
-> Replace these image paths with the actual filenames in the repository. Remove any image section for which no corresponding image is available.
-
 ## Technology Stack
 
 | Component | Technology / Tool |
@@ -189,8 +187,6 @@ The PCB layout was developed with practical assembly, accessibility, and circuit
 | 8 | Two-pin screw terminal | J1 | 1 |
 | 9 | 9 V battery and connector | — | 1 set |
 
-*Note: Confirm the resistor values, component package types, and quantities against the final schematic and PCB design before using this table for fabrication or purchasing.*
-
 ## Application Workflow
 
 1. **Circuit Design:** Develop the schematic using the tilt sensor, transistor, resistors, buzzer, LED, and power supply.
@@ -217,7 +213,6 @@ The prototype was evaluated under different operating conditions to assess its r
 
 The prototype demonstrated the intended detection and alert functionality during testing. Sensor orientation, sensitivity adjustment, and transistor interfacing were important factors in achieving consistent operation.
 
-*Record quantitative measurements, response times, and repeated-trial results here if they have been measured. Do not interpret qualitative tests as proof of a specific detection accuracy or response time.*
 
 ## Applications
 
@@ -335,3 +330,7 @@ This project provided practical experience in:
 The Tilt Sensor-Based Suitcase Lift Alarm System demonstrates a simple approach to luggage movement detection using a tilt sensor, a BC547 transistor switching stage, and audible and visual indicators.
 
 Combining circuit simulation with custom single-layer PCB design provided a practical opportunity to explore analogue electronics, sensor interfacing, hardware debugging, and PCB implementation. Its simple architecture and low component count make it a useful educational prototype for exploring microcontroller-free security systems.
+
+## Acknowledgements
+
+Developed collaboratively as an electronics project focused on circuit design, simulation, sensor interfacing, and PCB development.
