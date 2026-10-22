@@ -45,11 +45,29 @@ The design aims to provide a portable, low-cost luggage security solution using 
 
 *Figure 1: Circuit schematic of the tilt sensor-based alarm system.*
 
+The base resistor limits the current entering the transistor's base.
+The pull-down resistor helps keep the transistor OFF when the sensor signal is inactive.
+The LED series resistor limits the LED current.
+The transistor acts as a switching element between the control signal and the alarm load.
+The power supply and output-device ratings must be compatible with the selected components.
+
 ### NI Multisim Simulation
 
-![NI Multisim simulation](images/multisim-simulation.png)
+<img width="353" height="175" alt="Department of Electronics and Telecommunication Engineering Assam Engineering College Micro Project Abstract" src="https://github.com/user-attachments/assets/83b437de-b60a-474c-9638-736f85c9386e" />
+
 
 *Figure 2: Circuit simulation and verification in NI Multisim.*
+
+The circuit was simulated using NI Multisim. Since a suitable tilt sensor was unavailable in the component library, a switch was used to represent the sensor's electrical state.
+
+The simulation procedure was:
+
+Assemble the circuit using the available electronic components.
+Use a switch to represent the tilt sensor.
+Close the master switch to supply power.
+Change the sensor-equivalent switch state.
+Observe the buzzer response and verify the switching behaviour.
+The simulation demonstrated the intended alarm response to a change in the simulated sensor state. The switch-based simulation validates the electrical switching concept but does not reproduce the mechanical tilt threshold or sensitivity of the physical sensor.
 
 ### PCB Layout
 
@@ -72,13 +90,12 @@ The design aims to provide a portable, low-cost luggage security solution using 
 | Switching | BC547 NPN transistor |
 | Audible output | Piezoelectric buzzer |
 | Visual output | LED indicator |
-| Passive components | Resistors |
+| Circuit protection and biasing | Fixed resistors and pull-down resistor |
 | Power supply | 9 V battery |
 | Circuit simulation | NI Multisim |
-| PCB design | PCB design software used for the project |
+| PCB design | KiCad |
 | PCB implementation | Single-layer PCB layout |
-| Design techniques | Component placement, track routing, copper ground pour |
-| Version control | Git and GitHub |
+| System control | SPST toggle switch |
 
 ## System Architecture
 
@@ -88,7 +105,10 @@ The system follows a hardware-based sensing and switching architecture.
           9 V Battery Supply
                   |
                   v
-           Power Switch
+           SPST Switch
+                  |
+                  v
+           Power Distribution
                   |
                   v
          SW-520D Tilt Sensor
@@ -108,31 +128,36 @@ The system follows a hardware-based sensing and switching architecture.
         Audio Alert   Visual Alert
 ```
 
-The tilt sensor responds to changes in orientation. Its output controls the transistor's switching state through the biasing network, enabling the buzzer and LED to provide an alert when the triggering condition is met.
+Main Functional Blocks
+Power Supply: Provides the DC voltage required by the sensor, transistor circuit, and alarm components.
+Tilt Detection: Monitors changes in the suitcase's orientation using a tilt-sensitive switching element.
+Biasing Network: Uses resistors to establish the transistor's base conditions and help prevent unwanted triggering.
+Switching Stage: The BC547 transistor controls current through the alarm output devices.
+Alert Stage: The LED and piezoelectric buzzer provide visual and audible warnings when the circuit detects the configured alarm condition.
 
 The exact switching behaviour depends on the sensor module's contact arrangement and the implemented circuit connections.
 
 ## Working Principle
 
+The Tilt Sensor-Based Suitcase Lift Alarm System operates by detecting changes in the orientation of a suitcase and activating an alarm through a transistor switching circuit. The system is powered by a 9V battery or an appropriately regulated DC supply. The SPST switch is used to turn the circuit ON or OFF.
+
+
 ### 1. Normal / Armed Condition
 
-When the suitcase remains in its intended orientation, the tilt sensor maintains its normal electrical state. The transistor switching stage keeps the alarm outputs inactive under the configured circuit conditions.
+When the suitcase remains in its intended stationary position, the tilt sensor maintains its normal electrical state. The biasing network keeps the BC547 transistor in the required non-conducting state, and the LED and buzzer remain OFF.
 
 ### 2. Tilt or Lift Detection
 
-When the suitcase is tilted beyond the sensor's effective detection threshold, the internal conductive ball changes position, altering the sensor's electrical state.
+When the suitcase is lifted or tilted beyond the sensor's effective operating threshold, the internal sensing element changes state. This change modifies the transistor's base drive through the sensor interfacing and resistor network.
 
-### 3. Transistor Switching
+### 3. Alarm Activation
+The BC547 transistor switches into conduction when sufficient base current is supplied. The resulting current path activates the piezoelectric buzzer and illuminates the LED, providing an audible and visual warning.
 
-The sensor output and associated resistor network control the base drive of the BC547 transistor. The transistor switches between cutoff and conduction according to the applied base current and circuit configuration.
+### 4. Return to Normal Position
 
-### 4. Audible and Visual Alert
+When the suitcase returns to its original orientation, the sensor may return to its normal state. In a self-resetting implementation, the transistor switches OFF, and both alarm indicators deactivate.
 
-When the switching stage activates the output devices, the piezoelectric buzzer produces an audible warning, and the LED illuminates to indicate detected movement.
-
-### 5. Return to Normal Position
-
-The alarm responds to the sensor's restored state according to the circuit configuration. In the implemented non-latching design, the alert may stop when the suitcase returns to its normal orientation.
+The precise response depends on the sensor module's contact behaviour and the implemented circuit polarity. A latching alarm would require additional circuitry.
 
 **Note:** The SW-520D is a ball-type tilt switch, and its effective triggering angle depends on the particular sensor, mounting orientation, and movement direction. The actual threshold should be established through testing rather than assumed to be a fixed angle.
 
@@ -144,12 +169,15 @@ NI Multisim was used to model and examine the circuit connections before physica
 
 The main circuit elements include:
 
-- SW-520D tilt sensor for movement detection.
-- BC547 NPN transistor for switching control.
-- R1 and R2 for transistor biasing, according to the circuit design.
-- LED and its current-limiting resistor for visual indication.
-- Piezoelectric buzzer for audible indication.
-- Power switch and battery connections.
+-9V DC battery
+-SPST master switch
+-SW-520D tilt sensor or equivalent
+-BC547 NPN transistor
+-5–12V piezoelectric buzzer, subject to its specified operating voltage
+-LED indicator
+-10kΩ resistor for transistor base biasing
+-10kΩ pull-down resistor
+-470Ω LED current-limiting resistor
 
 The simulation stage helped establish the intended circuit behaviour and identify connection issues before proceeding to hardware validation.
 
@@ -175,17 +203,21 @@ The PCB layout was developed with practical assembly, accessibility, and circuit
 
 ## Bill of Materials (BOM)
 
-| No. | Component | Designator | Quantity |
+| No. | Component | Specification | Quantity |
 |---|---|---|---|
-| 1 | SW-520D tilt sensor | TS1 | 1 |
-| 2 | BC547 NPN transistor | Q1 | 1 |
-| 3 | Biasing resistors | R1, R2 | 2 |
+| 1 | Tilt sensor | SW-520D or equivalent | 1 |
+| 2 | NPN transistor | BC547 | 1 |
+| 3 | Base resistor (R1) | 10kΩ | 1 |
 | 4 | LED current-limiting resistor | R3 | 1 |
-| 5 | LED | LED1 | 1 |
-| 6 | Piezoelectric buzzer | PZ1 | 1 |
-| 7 | SPST slide switch | SW1 | 1 |
+| 5 | LED | Standard indicator LED | 1 |
+| 6 | Piezoelectric buzzer | - | 1 |
+| 7 | SPST slide switch | Toggle or slide type | 1 |
 | 8 | Two-pin screw terminal | J1 | 1 |
-| 9 | 9 V battery and connector | — | 1 set |
+| 9 | Battery | 9V DC | 1 set |
+| 10 | Pull-down resistor (R2) | 10kΩ | 1 |
+| 11 | LED resistor (R3)) | 470Ω | 1 |
+
+
 
 ## Application Workflow
 
@@ -288,13 +320,9 @@ cd tilt-sensor-suitcase-alarm
 
 ### 2. Explore the Circuit Design
 
-Open the schematic or Multisim project from the `design-files/multisim/` directory, if provided.
-
 Review the sensor connections, transistor biasing network, LED current-limiting resistor, buzzer connection, and power supply before running the simulation.
 
 ### 3. Explore the PCB Layout
-
-Open the native PCB project from `design-files/pcb/`, if provided.
 
 Inspect component placement, routing, the copper ground pour, and the battery connector.
 
